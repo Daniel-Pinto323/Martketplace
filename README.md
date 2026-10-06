@@ -94,5 +94,60 @@ Success criteria for the first version
 
 This plan keeps the initial build focused on product discovery and endless browsing, rather than building a full ecommerce system before confirming the core experience works.
 
+STARTING THE PROJECT
+
+I chose FastAPI for the first version because it is Python-first, easy to read for beginners, and gives us a clean API for a product feed without the extra setup cost of a big frontend framework.
+
+Why FastAPI instead of Flask?
+- FastAPI is built around Python type hints and modern web conventions.
+- It gives auto-generated API docs at /docs, which is helpful while learning.
+- It works well with a simple HTML/JavaScript frontend that is lightweight and easy to debug.
+- It keeps the backend and the feed logic straightforward for a project like this.
+
+Project structure for this scaffold
+- app/main.py: the FastAPI app and routes
+- app/data.py: sample product data to simulate a multi-store feed
+- app/templates/index.html: the page layout for the browser UI
+- app/static/styles.css: styling
+- app/static/app.js: simple front-end logic to load and filter products
+- requirements.txt: Python dependencies
+
+Local setup
+1. Open a terminal in the project root.
+2. Create a virtual environment:
+   python -m venv .venv
+3. Activate it:
+   - Windows PowerShell: .\.venv\Scripts\Activate.ps1
+   - Windows Command Prompt: .\.venv\Scripts\activate.bat
+4. Install dependencies:
+   python -m pip install -r requirements.txt
+5. Start the app:
+   uvicorn app.main:app --reload
+6. Open the app in a browser:
+   http://127.0.0.1:8000
+7. Visit the API docs at:
+   http://127.0.0.1:8000/docs
+
+What the app is doing right now
+- The backend exposes a /api/products endpoint.
+- The frontend requests that endpoint and renders product cards in a scroll-friendly layout.
+- The mock data includes several products from different stores so you can see the multi-store feed concept working.
+
+How the Python pieces fit together
+- app/main.py defines routes such as / and /api/products.
+- A route is just a Python function that responds to a URL.
+- FastAPI reads the URL, runs the function, and sends back JSON or HTML.
+- Templates in app/templates let us render HTML with data from Python.
+- The browser then uses JavaScript to fetch JSON and update the page without needing a full React app.
+
+Next steps after this scaffold
+1. Replace the mock data with real scraped catalog data from a small set of stores.
+2. Add a SQLite database and store normalized product records.
+3. Add filters and sorting logic in the backend.
+4. Add a scheduled refresh job to update inventory regularly.
+5. Add more search and recommendation features once the core feed works.
+
+This is intentionally a simple MVP so you can learn the stack without getting trapped in frontend complexity before proving the shopping-feed concept works.
+
 
 
